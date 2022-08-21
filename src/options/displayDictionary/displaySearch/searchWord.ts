@@ -1,8 +1,16 @@
 // IMPORTED TOOLS
-import { notif, sccss, error, divider, pressAnyKey } from '../../../utils';
+import {
+    notif,
+    sccss,
+    error,
+    clear,
+    divider,
+    pressAnyKey,
+} from '../../../utils';
 import * as dictionary from '../../../utils/dictionary';
 // IMPORTED LIB-FUNCTIONS
 import prompts from 'prompts';
+import chalk from 'chalk';
 
 // FUNCTIONS
 const getWordPrompt = async () => {
@@ -25,28 +33,45 @@ const getWordPrompt = async () => {
     );
     return word as string;
 };
+const addDefinitions = async (word: string) => {
+    const { definitions } = await dictionary.getWord(word);
+    clear();
+    console.log(chalk.cyan('[DEFINITIONS]'));
+    console.log(chalk.cyan('  >'), definitions.join(', '));
+    divider();
+    const { n_definitions } = await prompts({
+        type: 'list',
+        name: 'n_definitions',
+        message: 'Definitions?',
+        separator: ',',
+    });
+    divider();
+    notif('Adding definitions!');
+    await dictionary.addDefinitions(word, n_definitions);
+    sccss('Added successfully!');
+};
 const editWord = async (word: string) => {
-    const o_word = await dictionary.getWord(word);
     const categories = await dictionary.getCategories();
+    const { definitions, category } = await dictionary.getWord(word);
     const { p_word, p_definitions, p_category } = await prompts([
         {
             type: 'text',
             name: 'p_word',
             message: 'Word?',
-            initial: o_word.word,
+            initial: word,
         },
         {
             type: 'list',
             name: 'p_definitions',
             message: 'Definitions?',
             separator: ',',
-            initial: o_word.definitions.join(', '),
+            initial: definitions.join(', '),
         },
         {
             type: 'autocomplete',
             name: 'p_category',
             message: 'Category?',
-            initial: o_word.category,
+            initial: category,
             choices: categories.map((category) => ({ title: category })),
             limit: 10,
         },
@@ -72,6 +97,10 @@ const displayOptions = async () => {
             message: word,
             choices: [
                 {
+                    title: 'Add',
+                    value: 'add',
+                },
+                {
                     title: 'Edit',
                     value: 'edit',
                 },
@@ -93,6 +122,9 @@ const displayOptions = async () => {
         }
     );
     switch (response) {
+        case 'add':
+            await addDefinitions(word);
+            break;
         case 'edit':
             await editWord(word);
             break;

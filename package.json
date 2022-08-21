@@ -18,7 +18,6 @@
         "puppeteer": "^16.1.0"
     },
     "devDependencies": {
-        "@types/clear": "^0.1.2",
         "@types/prompts": "^2.0.14"
     }
 }

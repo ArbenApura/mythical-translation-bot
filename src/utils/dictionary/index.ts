@@ -97,6 +97,20 @@ export const deleteWord = async (word: string) => {
     });
     await editDictionary(dictionary);
 };
+export const addDefinitions = async (word: string, n_definitions: string[]) => {
+    const dictionary = await getDictionary();
+    const { category, definitions } = await getWord(word);
+    dictionary.categories = dictionary.categories.map((d_category) => {
+        if (d_category.category !== category) return d_category;
+        d_category.words.map((d_word) => {
+            if (d_word.word !== word) return d_word;
+            d_word.definitions = [...definitions, ...n_definitions];
+            return d_word;
+        });
+        return d_category;
+    });
+    await editDictionary(dictionary);
+};
 export const createCategory = async (category: string) => {
     const dictionary = await getDictionary();
     const categories = await getCategories();
