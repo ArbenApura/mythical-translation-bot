@@ -1,0 +1,49 @@
+{
+    "restoreTerminals.terminals": [
+        {
+            "splitTerminals": [
+                {
+                    "name": "TS SERVER",
+                    "commands": ["tsc"]
+                }
+            ]
+        },
+        {
+            "splitTerminals": [
+                {
+                    "name": "NPM",
+                    "commands": [""]
+                }
+            ]
+        },
+        {
+            "splitTerminals": [
+                {
+                    "name": "GIT",
+                    "commands": [""]
+                }
+            ]
+        },
+        {
+            "splitTerminals": [
+                {
+                    "name": "BOT",
+                    "commands": [""]
+                }
+            ]
+        }
+    ],
+    "editor.tabSize": 4,
+    "highlight.regexFlags": "gi",
+    "highlight.maxMatches": 100000,
+    "highlight.regexes": {
+        "(\".+\")": {
+            "color": "#f7d560",
+            "filterLanguageRegex": "plaintext"
+        },
+        "(\\[.+\\])": {
+            "color": "#0096FF",
+            "filterLanguageRegex": "plaintext"
+        }
+    }
+}

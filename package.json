@@ -1,0 +1,24 @@
+{
+    "name": "mythical-translation-bot",
+    "version": "1.0.0",
+    "description": "A CLI application that revolves around translating light novels. It has many functionalities such as retrieving and translating raws with the use of Web Automation.",
+    "author": "Arben Apura",
+    "main": "dist/output/main.js",
+    "scripts": {
+        "start": "cd translation && node ../dist/output/main.js",
+        "pkg": "pkg dist/output/main.js --output=dist/build/TranslationBot --targets=node16-linux-x64,node16-macos-x64,node16-win-x64 --public",
+        "push": "git push -u origin main",
+        "push-f": "git push -u origin main -f"
+    },
+    "dependencies": {
+        "chalk": "^4.1.2",
+        "just-split": "^3.1.1",
+        "press-any-key": "^0.1.1",
+        "prompts": "^2.4.2",
+        "puppeteer": "^16.1.0"
+    },
+    "devDependencies": {
+        "@types/clear": "^0.1.2",
+        "@types/prompts": "^2.0.14"
+    }
+}
