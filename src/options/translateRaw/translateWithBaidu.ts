@@ -14,29 +14,24 @@ import { draft } from '../../variables';
 import prompts from 'prompts';
 
 // VARIABLES
-const INPUT_EL = '#baidu_translate_input',
-    OUTPUT_EL = '.target-output',
-    WARNING_EL = '.fanyi-message-content',
-    RESET_EL = '.textarea-clear-btn',
+const OUTPUT_EL = '.target-output',
     MAX_LENGTH = 2000,
-    URL = 'https://fanyi.baidu.com/#cht/en/';
+    TARGET_URL = 'https://fanyi.baidu.com/#auto/en/';
 
 // FUNCTIONS
-const evaluateOutputEl = async (page: Page, source: string) => {
-    const sourceLines = source.split(/[\n\r]+/g);
+const evaluateOutputEl = async (page: Page) => {
     await page.waitForFunction(`(() => {
         let els = document.querySelectorAll('${OUTPUT_EL}');
-        let wel = document.querySelectorAll('${WARNING_EL}');
-        return wel.textContent || ${sourceLines.length} === els.length;
+        return els.length;
     })()`);
 };
 const translateByChunks = async (page: Page, chunks: string[][]) => {
     let translation = '';
     for (let i = 0; i < chunks.length; i++) {
-        if (i !== 0) await page.$eval(RESET_EL, (el: any) => el.click());
-        let chunk = chunks[i].join('\n\n');
-        await page.type(INPUT_EL, chunk);
-        await evaluateOutputEl(page, chunk);
+        await page.goto(
+            TARGET_URL + encodeURIComponent(chunks[i].join('\n\n'))
+        );
+        await evaluateOutputEl(page);
         translation += await page.$$eval(OUTPUT_EL, (els) =>
             els.map((el) => el.textContent).join('\n\n')
         );
@@ -45,21 +40,19 @@ const translateByChunks = async (page: Page, chunks: string[][]) => {
     return translation;
 };
 const translateAll = async (page: Page, raw: string) => {
-    await page.type(INPUT_EL, raw);
-    await evaluateOutputEl(page, raw);
-    let translation = await page.$$eval(OUTPUT_EL, (els) =>
+    await page.goto(TARGET_URL + raw);
+    await evaluateOutputEl(page);
+    return await page.$$eval(OUTPUT_EL, (els) =>
         els.map((el) => el.textContent).join('\n\n')
     );
-    return translation;
 };
 const translateWithBaidu = async (page: Page, raw: string) => {
     try {
         notif('Translating with Baidu...');
-        await page.goto(URL);
         let translation =
             raw.length > MAX_LENGTH
                 ? await translateByChunks(page, splitRaw(raw))
-                : await translateAll(page, raw);
+                : await translateAll(page, encodeURIComponent(raw));
         if (!translation.match(/\w/g)) throw new Error('No translation found!');
         await writeFile(draft.baidu, sanitizeContent(translation));
         sccss('Translated with Baidu successfully!');
