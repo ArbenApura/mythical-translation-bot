@@ -49,6 +49,7 @@ const translateAll = async (page: Page, raw: string) => {
 const translateWithBaidu = async (page: Page, raw: string) => {
     try {
         notif('Translating with Baidu...');
+        await page.goto(TARGET_URL);
         let translation =
             raw.length > MAX_LENGTH
                 ? await translateByChunks(page, splitRaw(raw))
