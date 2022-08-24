@@ -15,6 +15,11 @@ import { draft } from '../../variables';
 import retrieveFromIXDZS from './retrieveFromIXDZS';
 
 // FUNCTIONS
+const filterRaw = (raw: string) => {
+    let lines = raw.split(/[\n\r]+/g);
+    lines = lines.filter((line) => line.match(/\S/g));
+    return lines.join('\n\n');
+};
 const retrieveRaw = async () => {
     let raw = '';
     try {
@@ -36,6 +41,7 @@ const retrieveRaw = async () => {
         notif('Closing browser...');
         await browser.close();
         if (raw === '') return;
+        raw = filterRaw(raw);
         notif('Saving file...');
         await writeFile(draft.raw, sanitizeContent(raw));
         sccss('Retrieved successfully!');

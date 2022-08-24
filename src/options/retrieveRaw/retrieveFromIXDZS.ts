@@ -3,7 +3,7 @@ import type { Page } from 'puppeteer';
 // IMPORTED TYPES
 import type { Catalog, Chapter } from '../../types';
 // IMPORTED TOOLS
-import { error, notif, clear, getConfig } from '../../utils';
+import { error, notif, clear, divider, getConfig } from '../../utils';
 // IMPORTED FUNCTIONS
 import prompts from 'prompts';
 
@@ -106,6 +106,7 @@ const retrieveFromIXDZS = async (page: Page) => {
                 let response = await selectConfirmation(catalog, number);
                 if (response === 1) {
                     isConfirmed = true;
+                    divider();
                     notif('Retrieving raw...');
                     raw = await retrieveRaw(page, catalog[number - 1]);
                     break;
