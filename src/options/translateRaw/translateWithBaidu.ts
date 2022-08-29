@@ -15,15 +15,19 @@ import prompts from 'prompts';
 
 // VARIABLES
 const OUTPUT_EL = '.target-output',
+    TIMEOUT = 5000,
     MAX_LENGTH = 2000,
     TARGET_URL = 'https://fanyi.baidu.com/#auto/en/';
 
 // FUNCTIONS
 const evaluateOutputEl = async (page: Page) => {
-    await page.waitForFunction(`(() => {
+    await page.waitForFunction(
+        `(() => {
         let els = document.querySelectorAll('${OUTPUT_EL}');
         return els.length;
-    })()`);
+    })()`,
+        { timeout: TIMEOUT }
+    );
 };
 const translateByChunks = async (page: Page, chunks: string[][]) => {
     let translation = '';
