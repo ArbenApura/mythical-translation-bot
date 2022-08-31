@@ -95,13 +95,6 @@ const mergeTranslations = async (files: Files) => {
                     !excluded.some((v) => lines[i].line.includes(v))
                 )
                     selected.push(line || '');
-            } else if (lines[i].source === 'mymemory') {
-                if (
-                    lines[i].line &&
-                    lines[i].line !== '...' &&
-                    !selected.includes(lines[i].line)
-                )
-                    selected.push(line || '');
             } else {
                 if (lines[i].line && !selected.includes(lines[i].line))
                     selected.push(line || '');

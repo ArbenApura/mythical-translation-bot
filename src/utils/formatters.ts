@@ -27,5 +27,20 @@ export const sanitizeContent = (content: string) => {
     );
     return content;
 };
-export const splitRaw = (raw: string, limit: number = 25) =>
-    split(raw.split(/[\n\r]+/g), limit);
+export const splitRaw = (raw: string, maxChars: number = 500): string[][] => {
+    let chunks: string[][] = [raw.split(/[\n\r]+/g)];
+    while (chunks.some((chunk) => chunk.join('\n\n').length > maxChars)) {
+        let changes = 0;
+        chunks.forEach((chunk, index) => {
+            if (chunk.join('\n\n').length > maxChars) {
+                chunks.splice(
+                    index + changes,
+                    1,
+                    ...split(chunk, Math.ceil(chunk.length / 2))
+                );
+                changes++;
+            }
+        });
+    }
+    return chunks;
+};

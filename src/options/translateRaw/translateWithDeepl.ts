@@ -15,13 +15,15 @@ import prompts from 'prompts';
 
 // VARIABLES
 const OUTPUT_EL = '.lmt__target_textarea',
+    TIMEOUT = 5000,
     MAX_LENGTH = 5000,
-    TARGET_URL = 'https://www.deepl.com/translator#zh/en/';
+    TARGET_URL = 'https://www.deepl.com/translator#auto/en/';
 
 // FUNCTIONS
 const evaluateOutputEl = async (page: Page) =>
     await page.waitForFunction(
-        `document.querySelector('${OUTPUT_EL}').value !== ''`
+        `document.querySelector('${OUTPUT_EL}').value !== ''`,
+        { timeout: TIMEOUT }
     );
 const translateByChunks = async (page: Page, chunks: string[][]) => {
     let translation = '';
@@ -45,7 +47,7 @@ const translateWithDeepl = async (page: Page, raw: string) => {
         notif('Translating with Deepl...');
         let translation =
             raw.length > MAX_LENGTH
-                ? await translateByChunks(page, splitRaw(raw, 50))
+                ? await translateByChunks(page, splitRaw(raw, MAX_LENGTH))
                 : await translateAll(page, encodeURIComponent(raw));
         if (!translation.match(/\w/g)) throw new Error('No translation found!');
         await writeFile(draft.deepl, sanitizeContent(translation));

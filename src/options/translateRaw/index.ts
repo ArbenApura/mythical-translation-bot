@@ -19,8 +19,6 @@ import translateWithBaidu from './translateWithBaidu';
 import translateWithBing from './translateWithBing';
 import translateWithDeepl from './translateWithDeepl';
 import translateWithGoogle from './translateWithGoogle';
-import translateWithMyMemory from './translateWithMyMemory';
-import translateWithReverso from './translateWithReverso';
 import translateWithYandex from './translateWithYandex';
 
 // TYPES
@@ -35,8 +33,6 @@ const sourceEntries: SourceEntry[] = [
     { source: 'bing', execute: translateWithBing },
     { source: 'deepl', execute: translateWithDeepl },
     { source: 'google', execute: translateWithGoogle },
-    { source: 'mymemory', execute: translateWithMyMemory },
-    { source: 'reverso', execute: translateWithReverso },
     { source: 'yandex', execute: translateWithYandex },
 ];
 

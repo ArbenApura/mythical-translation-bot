@@ -12,8 +12,6 @@ export const draft = {
     bing: path.join(roots.draft, 'bing.txt'),
     deepl: path.join(roots.draft, 'deepl.txt'),
     google: path.join(roots.draft, 'google.txt'),
-    mymemory: path.join(roots.draft, 'mymemory.txt'),
-    reverso: path.join(roots.draft, 'reverso.txt'),
     yandex: path.join(roots.draft, 'yandex.txt'),
 };
 export const assets = {
@@ -38,8 +36,6 @@ export const CONFIG_TEMPLATE = `{
                 "bing": true,
                 "deepl": true,
                 "google": true,
-                "mymemory": true,
-                "reverso": true,
                 "yandex": true
             }
         },

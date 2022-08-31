@@ -15,6 +15,7 @@ import prompts from 'prompts';
 
 // VARIABLES
 const OUTPUT_EL = '#translation',
+    TIMEOUT = 5000,
     MAX_LENGTH = 5000,
     TARGET_URL = 'https://translate.yandex.com/?lang=zh-en&text=';
 
@@ -24,7 +25,8 @@ const evaluateOutputEl = async (page: Page) => {
     if (new URL(currentUrl).pathname === '/showcaptcha')
         throw new Error('Failed to bypass security!');
     await page.waitForFunction(
-        `document.querySelector('${OUTPUT_EL}').textContent.match(${/\w/g}) ? true : false`
+        `document.querySelector('${OUTPUT_EL}').textContent.match(${/\w/g}) ? true : false`,
+        { timeout: TIMEOUT }
     );
 };
 const translateByChunks = async (page: Page, chunks: string[][]) => {
@@ -49,7 +51,7 @@ const translateWithYandex = async (page: Page, raw: string) => {
         notif('Translating with Yandex...');
         let translation =
             raw.length > MAX_LENGTH
-                ? await translateByChunks(page, splitRaw(raw, 50))
+                ? await translateByChunks(page, splitRaw(raw, MAX_LENGTH))
                 : await translateAll(page, encodeURIComponent(raw));
         if (!translation.match(/\w/g)) throw new Error('No translation found!');
         await writeFile(draft.yandex, sanitizeContent(translation));

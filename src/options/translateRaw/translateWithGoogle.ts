@@ -15,15 +15,17 @@ import prompts from 'prompts';
 
 // VARIABLES
 const OUTPUT_EL = '.Q4iAWc',
+    TIMEOUT = 5000,
     MAX_LENGTH = 5000,
     TARGET_URL =
-        'https://translate.google.com/?sl=zh-TW&tl=en&op=translate&text=';
+        'https://translate.google.com/?sl=auto&tl=en&op=translate&text=';
 
 // FUNCTIONS
 const evaluateOutputEl = async (page: Page) => {
     await page.waitForSelector(OUTPUT_EL);
     await page.waitForFunction(
-        `document.querySelector('${OUTPUT_EL}').innerHTML !== ''`
+        `document.querySelector('${OUTPUT_EL}').innerHTML !== ''`,
+        { timeout: TIMEOUT }
     );
 };
 const translateByChunks = async (page: Page, chunks: string[][]) => {
@@ -48,7 +50,7 @@ const translateWithGoogle = async (page: Page, raw: string) => {
         notif('Translating with Google...');
         let translation =
             raw.length > MAX_LENGTH
-                ? await translateByChunks(page, splitRaw(raw, 50))
+                ? await translateByChunks(page, splitRaw(raw, MAX_LENGTH))
                 : await translateAll(page, encodeURIComponent(raw));
         if (!translation.match(/\w/g)) throw new Error('No translation found!');
         await writeFile(draft.google, sanitizeContent(translation));
