@@ -5,6 +5,7 @@ import {
     sccss,
     error,
     clear,
+    divider,
     clearDraft,
 } from '../../utils';
 // IMPORTED LIB-FUNCTIONS
@@ -31,6 +32,7 @@ export default async () => {
     try {
         clear();
         await getConfirmationPrompt();
+        divider();
         notif('Clearing draft...');
         await clearDraft();
         sccss('Cleared successfully!');
