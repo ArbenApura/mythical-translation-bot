@@ -15,7 +15,7 @@ import prompts from 'prompts';
 
 // VARIABLES
 const OUTPUT_EL = '.target-output',
-    TIMEOUT = 5000,
+    TIMEOUT = 10000,
     MAX_LENGTH = 2000,
     TARGET_URL = 'https://fanyi.baidu.com/#auto/en/';
 

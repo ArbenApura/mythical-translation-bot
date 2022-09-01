@@ -15,7 +15,7 @@ import prompts from 'prompts';
 
 // VARIABLES
 const OUTPUT_EL = '#tta_output_ta',
-    TIMEOUT = 5000,
+    TIMEOUT = 10000,
     MAX_LENGTH = 1000,
     TARGET_URL = 'https://www.bing.com/translator?from=&to=en&text=';
 

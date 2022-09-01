@@ -15,7 +15,7 @@ import prompts from 'prompts';
 
 // VARIABLES
 const OUTPUT_EL = '.Q4iAWc',
-    TIMEOUT = 5000,
+    TIMEOUT = 10000,
     MAX_LENGTH = 5000,
     TARGET_URL =
         'https://translate.google.com/?sl=auto&tl=en&op=translate&text=';

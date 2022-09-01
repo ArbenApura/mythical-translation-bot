@@ -15,7 +15,7 @@ import prompts from 'prompts';
 
 // VARIABLES
 const OUTPUT_EL = '#translation',
-    TIMEOUT = 5000,
+    TIMEOUT = 10000,
     MAX_LENGTH = 5000,
     TARGET_URL = 'https://translate.yandex.com/?lang=zh-en&text=';
 
