@@ -3,8 +3,6 @@ import { Source } from '../../types';
 export interface Config {
     watermark: string;
     webscraping: {
-        product: 'chrome' | 'firefox';
-        executablePath: string;
         translator: {
             headless: boolean;
             display: {

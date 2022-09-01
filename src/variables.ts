@@ -4,6 +4,7 @@ export const roots = {
     draft: path.join(process.cwd(), 'Draft'),
     published: path.join(process.cwd(), 'Published'),
     assets: path.join(process.cwd(), 'Assets'),
+    chrome: path.join(process.cwd(), 'Chromium/chrome.exe'),
 };
 export const draft = {
     draft: path.join(roots.draft, 'draft.txt'),
@@ -23,8 +24,6 @@ export const assets = {
 export const CONFIG_TEMPLATE = `{
     "watermark": "Translated by [watermark].",
     "webscraping": {
-        "product": "chrome",
-        "executablePath": "C:/Program Files/Google/Chrome/Application/chrome.exe",
         "translator": {
             "headless": true,
             "display": {

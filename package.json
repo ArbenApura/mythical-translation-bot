@@ -6,7 +6,8 @@
     "main": "dist/output/main.js",
     "scripts": {
         "start": "cd translation && node ../dist/output/main.js",
-        "pkg": "pkg dist/output/main.js --output=dist/build/TranslationBot --targets=node16-linux-x64,node16-macos-x64,node16-win-x64 --public",
+        "serve": "cd translation && c:\\Users\\arben\\Desktop\\mythical-translation-bot\\dist\\build\\TranslationBot-win.exe",
+        "pkg": "pkg dist/output/main.js --output=dist/build/TranslationBot --targets=node16-win-x64 --public",
         "push": "git push -u origin main",
         "push-f": "git push -u origin main -f"
     },

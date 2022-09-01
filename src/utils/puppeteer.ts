@@ -1,5 +1,6 @@
 // IMPORTED TOOLS
 import { getConfig } from '.';
+import { roots } from '../variables';
 // IMPORTED LIB-FUNCTIONS
 import puppeteer from 'puppeteer';
 
@@ -10,8 +11,7 @@ export const getBrowser = async (
     const { webscraping } = await getConfig();
     return await puppeteer.launch({
         headless: webscraping[mode].headless,
-        product: webscraping.product,
-        executablePath: webscraping.executablePath,
+        executablePath: roots.chrome,
         defaultViewport: null,
         args: ['--start-maximized'],
     });
