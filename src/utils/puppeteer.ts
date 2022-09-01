@@ -4,10 +4,12 @@ import { getConfig } from '.';
 import puppeteer from 'puppeteer';
 
 // FUNCTIONS
-export const getBrowser = async () => {
+export const getBrowser = async (
+    mode: 'translator' | 'retriever' = 'translator'
+) => {
     const { webscraping } = await getConfig();
     return await puppeteer.launch({
-        headless: webscraping.headless,
+        headless: webscraping[mode].headless,
         product: webscraping.product,
         executablePath: webscraping.executablePath,
         defaultViewport: null,

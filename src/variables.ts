@@ -23,10 +23,10 @@ export const assets = {
 export const CONFIG_TEMPLATE = `{
     "watermark": "Translated by [watermark].",
     "webscraping": {
-        "headless": true,
         "product": "chrome",
         "executablePath": "C:/Program Files/Google/Chrome/Application/chrome.exe",
         "translator": {
+            "headless": true,
             "display": {
                 "label": true,
                 "raw": true
@@ -40,6 +40,7 @@ export const CONFIG_TEMPLATE = `{
             }
         },
         "retriever": {
+            "headless": true,
             "url": ""
         }
     }

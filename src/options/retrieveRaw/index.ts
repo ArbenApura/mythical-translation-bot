@@ -27,7 +27,7 @@ const retrieveRaw = async () => {
         const retriever = config.webscraping.retriever;
         clear();
         notif('Launching browser...');
-        const browser = await getBrowser();
+        const browser = await getBrowser('retriever');
         notif('Opening new page...');
         const page = await browser.newPage();
         const host = new URL(retriever.url).host;

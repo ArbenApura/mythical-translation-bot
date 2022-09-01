@@ -3,10 +3,10 @@ import { Source } from '../../types';
 export interface Config {
     watermark: string;
     webscraping: {
-        headless: boolean;
         product: 'chrome' | 'firefox';
         executablePath: string;
         translator: {
+            headless: boolean;
             display: {
                 label: boolean;
                 raw: boolean;
@@ -16,6 +16,7 @@ export interface Config {
             };
         };
         retriever: {
+            headless: boolean;
             url: string;
         };
     };
